@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="Test Booking" verbose="1">
+    <suite-files>
+        <suite-file path="bookingTestSuite.xml"/>
+    </suite-files>
+    <test name="AccommodationTest">
+        <classes>
+            <class name="booking.tests.AccommodationTest" />
+        </classes>
+    </test>
+    <test name="FlightsTest">
+        <classes>
+            <class name="booking.tests.FlightsTest" />
+        </classes>
+    </test>
+    <test name="CarsRentalTest">
+        <classes>
+            <class name="booking.tests.CarsRentalTest" />
+        </classes>
+    </test>
+    <test name="AirportTaxisTest">
+        <classes>
+            <class name="booking.tests.AirportTaxisTest" />
+        </classes>
+    </test>
+</suite>
