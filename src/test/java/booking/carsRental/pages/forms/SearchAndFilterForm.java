@@ -1,8 +1,8 @@
 package booking.carsRental.pages.forms;
 
 import booking.carsRental.enums.RentalDateType;
+import booking.common.entities.Date;
 import booking.common.enums.TimeName;
-import booking.common.enums.Month;
 import booking.flights.enums.Chars;
 import framework.webdriver.BaseForm;
 import framework.webdriver.elements.Button;
@@ -21,15 +21,15 @@ public class SearchAndFilterForm extends BaseForm {
         super(By.id(MAIN_LOCATOR),"Cars Rental Main Page");
     }
 
-    public void setRentalTime(RentalDateType dateType, String day, Month month, String year, String time){
+    public void setRentalTime(RentalDateType dateType, Date date){
         int increment = 1;
         int hoursIndex = 0;
         int minutesIndex = 1;
-        String monthAndYearDate =  new StringBuilder(String.valueOf(month.getIndex()+increment))
-                .append(Chars.HYPHEN.getCharacter()).append(year).toString();
-        String[] hoursAndMinutes = time.split(Chars.COLON.getCharacter());
+        String monthAndYearDate =  new StringBuilder(String.valueOf(date.getMonthIndex()+increment))
+                .append(Chars.HYPHEN.getCharacter()).append(date.getYear()).toString();
+        String[] hoursAndMinutes = date.getTime().split(Chars.COLON.getCharacter());
         new Select(By.xpath(String.format(formatTimeLocator,dateType.getShortName(), TimeName.DAY.getName()))
-                ,"Days Select").selectByValue(day);
+                ,"Days Select").selectByValue(String.valueOf(date.getDay()));
         new Select(By.xpath(String.format(formatTimeLocator,dateType.getShortName(), TimeName.MONTH.getName()))
                 ,"Month And Year Select").selectByValue(monthAndYearDate);
         new Select(By.xpath(String.format(formatTimeLocator,dateType.getShortName(), TimeName.HOUR.getName()))

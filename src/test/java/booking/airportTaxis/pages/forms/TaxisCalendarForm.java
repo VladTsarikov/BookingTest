@@ -1,5 +1,6 @@
 package booking.airportTaxis.pages.forms;
 
+import booking.common.entities.Date;
 import booking.common.forms.BaseCalendarForm;
 import framework.utils.CustomCalendar;
 import framework.webdriver.elements.*;
@@ -26,9 +27,9 @@ public class TaxisCalendarForm extends BaseCalendarForm {
         new Label(By.xpath(String.format(formatDayLocator,day)),"Day Locator").clickViaJS();
     }
 
-    public void setDate(int year, int month, int day){
+    public void setDate(Date date){
         goToMonth(CustomCalendar.getCurrentYear(), CustomCalendar.getCurrentMonth(), CustomCalendar.getCurrentDay()
-                , year, month, day);
-        clickOnMonthDay(day);
+                , date.getYear(), date.getMonthIndex(), date.getDay());
+        clickOnMonthDay(date.getDay());
     }
 }

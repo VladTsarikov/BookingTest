@@ -1,6 +1,7 @@
 package booking.tests;
 
 import booking.accommodation.pages.AccommodationMainPage;
+import booking.common.entities.Date;
 import booking.common.enums.*;
 import booking.flights.pages.forms.FlightsCurrencyForm;
 import booking.flights.enums.*;
@@ -9,12 +10,18 @@ import booking.flights.pages.forms.*;
 import framework.utils.Logger;
 import framework.webdriver.BaseEntity;
 import org.testng.Assert;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 public class FlightsTest extends BaseEntity {
 
+    private Date firstDate = new Date(2018, Month.DECEMBER.getIndex(),25,"11:00");
+    private Date secondDate = new Date(2018, Month.DECEMBER.getIndex(),26, "11:00");
+    private Date thirdDate = new Date(2018, Month.DECEMBER.getIndex(),27, "11:))");
+
+    @Parameters({"firstOriginDirection", "firstDestinationDirection"})
     @Test
-    public void oneWayFlightsTest(){
+    public void oneWayFlightsTest(String firstOriginDirection, String firstDestinationDirection){
         Logger.logStep(1,"OPENING BOOKING.COM...");
         AccommodationMainPage accommodationMainPage = new AccommodationMainPage();
 
@@ -27,10 +34,10 @@ public class FlightsTest extends BaseEntity {
         mainFlightsPage.selectFlightTypeLabel(FlightType.ONE_WAY);
 
         Logger.logStep(4,"SETTING FLIGHTS DATE...");
-        mainFlightsPage.setDirection(Direction.ORIGIN,"Minsk (MSQ)");
-        mainFlightsPage.setDirection(Direction.DESTINATION," Moscow (DME)");
+        mainFlightsPage.setDirection(Direction.ORIGIN,firstOriginDirection);
+        mainFlightsPage.setDirection(Direction.DESTINATION,firstDestinationDirection);
         mainFlightsPage.clickDate(DateType.DEPART);
-        new SingleCalendarForm().setDate(2018, Month.DECEMBER.getIndex(),25);
+        new SingleCalendarForm().setDate(firstDate);
 
         Logger.logStep(5,"CLICKING SEARCH BUTTON AND OPENING FOUND FLIGHTS PAGE...");
         mainFlightsPage.clickSearchButton();
@@ -46,8 +53,9 @@ public class FlightsTest extends BaseEntity {
         Assert.assertTrue(foundFlightsPage.getFlightsPrice(1)<360,"Flight price does not match the required");
     }
 
+    @Parameters({"firstOriginDirection","firstDestinationDirection"})
     @Test
-    public void roundTripFlightsTest(){
+    public void roundTripFlightsTest(String firstOriginDirection, String firstDestinationDirection){
         Logger.logStep(1,"OPENING BOOKING.COM...");
         AccommodationMainPage accommodationMainPage = new AccommodationMainPage();
 
@@ -60,10 +68,10 @@ public class FlightsTest extends BaseEntity {
         mainFlightsPage.selectFlightTypeLabel(FlightType.ROUND_TRIP);
 
         Logger.logStep(4,"SETTING FLIGHTS DATA...");
-        mainFlightsPage.setDirection(Direction.ORIGIN,"Minsk (MSQ)");
-        mainFlightsPage.setDirection(Direction.DESTINATION," Moscow (DME)");
+        mainFlightsPage.setDirection(Direction.ORIGIN,firstOriginDirection);
+        mainFlightsPage.setDirection(Direction.DESTINATION,firstDestinationDirection);
         mainFlightsPage.clickDate(DateType.DEPART);
-        new DoubleCalendarForm().setDates(2018, Month.DECEMBER.getIndex(),25, 2018, Month.JANUARY.getIndex(),26);
+        new DoubleCalendarForm().setDates(firstDate, secondDate);
 
         Logger.logStep(5,"CLICKING SEARCH BUTTON AND OPENING FOUND FLIGHTS PAGE...");
         mainFlightsPage.clickSearchButton();
@@ -74,8 +82,11 @@ public class FlightsTest extends BaseEntity {
         Assert.assertTrue(foundFlightsPage.getFlightsDuration(1)<3,"Flight time does not match the required");
     }
 
+    @Parameters({"firstOriginDirection","firstDestinationDirection","secondOriginDirection","secondDestinationDirection"
+            , "thirdOriginDirection", "thirdDestinationDirection"})
     @Test
-    public void multiCityFlightsTest(){
+    public void multiCityFlightsTest(String firstOriginDirection, String firstDestinationDirection, String secondOriginDirection
+            , String secondDestinationDirection, String thirdOriginDirection, String thirdDestinationDirection){
         Logger.logStep(1,"OPENING BOOKING.COM...");
         AccommodationMainPage accommodationMainPage = new AccommodationMainPage();
 
@@ -88,21 +99,21 @@ public class FlightsTest extends BaseEntity {
         mainFlightsPage.selectFlightTypeLabel(FlightType.MULTI_CITY);
 
         Logger.logStep(4,"SETTING FLIGHTS DATA...");
-        mainFlightsPage.setDirection(Direction.FIRST_ORIGIN,"Minsk (MSQ)");
-        mainFlightsPage.setDirection(Direction.FIRST_DESTINATION," Moscow (DME)");
-        mainFlightsPage.setDirection(Direction.NEXT_OIGIN," Moscow (DME)");
-        mainFlightsPage.setDirection(Direction.NEXT_DESTINATION," Kiev (IEV)");
-        mainFlightsPage.setDirection(Direction.LAST_OIGIN," Kiev (IEV)");
-        mainFlightsPage.setDirection(Direction.LAST_DESTINATION," Minsk (MSQ)");
+        mainFlightsPage.setDirection(Direction.FIRST_ORIGIN,firstOriginDirection);
+        mainFlightsPage.setDirection(Direction.FIRST_DESTINATION,firstDestinationDirection);
+        mainFlightsPage.setDirection(Direction.NEXT_OIGIN,secondOriginDirection);
+        mainFlightsPage.setDirection(Direction.NEXT_DESTINATION,secondDestinationDirection);
+        mainFlightsPage.setDirection(Direction.LAST_OIGIN,thirdOriginDirection);
+        mainFlightsPage.setDirection(Direction.LAST_DESTINATION,thirdDestinationDirection);
         mainFlightsPage.clickDate(DateType.FIRST_DEPART);
-        new SingleCalendarForm().setDate(2018, Month.DECEMBER.getIndex(),25);
+        new SingleCalendarForm().setDate(firstDate);
         mainFlightsPage.clickDate(DateType.NEXT_DEPART);
-        new SingleCalendarForm().setDate(2018, Month.DECEMBER.getIndex(),26);
+        new SingleCalendarForm().setDate(secondDate);
         mainFlightsPage.clickDate(DateType.LAST_DEPART);
-        new SingleCalendarForm().setDate(2018, Month.DECEMBER.getIndex(),27);
-        mainFlightsPage.selectTime(TimeNumber.FIRST_TIME,"11:00");
-        mainFlightsPage.selectTime(TimeNumber.NEXT_TIME,"11:00");
-        mainFlightsPage.selectTime(TimeNumber.LAST_TIME,"11:00");
+        new SingleCalendarForm().setDate(thirdDate);
+        mainFlightsPage.selectTime(TimeNumber.FIRST_TIME,firstDate.getTime());
+        mainFlightsPage.selectTime(TimeNumber.NEXT_TIME,secondDate.getTime());
+        mainFlightsPage.selectTime(TimeNumber.LAST_TIME,thirdDate.getTime());
 
         Logger.logStep(5,"CLICKING SEARCH BUTTON AND OPENING FOUND FLIGHTS PAGE...");
         mainFlightsPage.clickSearchButton();

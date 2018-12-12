@@ -5,21 +5,40 @@
         <suite-file path="bookingTestSuite.xml"/>
     </suite-files>
     <test name="AccommodationTest">
+        <parameter name="firstAdultsCount" value="2"/>
+        <parameter name="secondAdultsCount" value="2"/>
+        <parameter name="firstChildrenCount" value="1"/>
+        <parameter name="secondChildrenCount" value="3"/>
+        <parameter name="firstRoomsCount" value="1"/>
+        <parameter name="secondRoomsCount" value="2"/>
+        <parameter name="maxAllowablePrice" value="500"/>
+        <parameter name="minAllowableSearchCount" value="20"/>
         <classes>
             <class name="booking.tests.AccommodationTest" />
         </classes>
     </test>
     <test name="FlightsTest">
+        <parameter name="firstOriginDirection" value="Minsk (MSQ)"/>
+        <parameter name="firstDestinationDirection" value=" Moscow (DME)"/>
+        <parameter name="secondOriginDirection" value=" Moscow (DME)"/>
+        <parameter name="secondDestinationDirection" value=" Kiev (IEV)"/>
+        <parameter name="thirdOriginDirection" value=" Kiev (IEV)"/>
+        <parameter name="thirdDestinationDirection" value=" Minsk (MSQ)"/>
         <classes>
             <class name="booking.tests.FlightsTest" />
         </classes>
     </test>
     <test name="CarsRentalTest">
+        <parameter name="rentalLocation" value="Sheremetyevo Airport (SVO)"/>
+        <parameter name="maxAllowablePrice" value="130"/>
         <classes>
             <class name="booking.tests.CarsRentalTest" />
         </classes>
     </test>
     <test name="AirportTaxisTest">
+        <parameter name="pickUpTaxisLocation" value="Sheremetyevo International Airport (SVO)"/>
+        <parameter name="dropOffTaxisLocation" value="Moscow Manege, Manege Square, Moscow, Russian Federation"/>
+        <parameter name="taxisPassengersCount" value="5"/>
         <classes>
             <class name="booking.tests.AirportTaxisTest" />
         </classes>

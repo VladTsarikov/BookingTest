@@ -4,16 +4,22 @@ import booking.accommodation.pages.AccommodationMainPage;
 import booking.carsRental.enums.*;
 import booking.carsRental.pages.*;
 import booking.carsRental.pages.forms.*;
+import booking.common.entities.Date;
 import booking.common.enums.*;
 import framework.utils.*;
 import framework.webdriver.BaseEntity;
 import org.testng.Assert;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 public class CarsRentalTest extends BaseEntity {
 
+    private Date pickUpDate = new Date(2018, Month.DECEMBER.getIndex(),25,"11:30");
+    private Date dropOffDate = new Date(2018, Month.DECEMBER.getIndex(),26,"11:30");
+
+    @Parameters({"rentalLocation","maxAllowablePrice"})
     @Test
-    public void rentalCarPriceTest(){
+    public void rentalCarPriceTest(String rentalLocation, int maxAllowablePrice){
         Logger.logStep(1,"OPENING BOOKING.COM...");
         AccommodationMainPage accommodationMainPage = new AccommodationMainPage();
 
@@ -23,14 +29,14 @@ public class CarsRentalTest extends BaseEntity {
 
         Logger.logStep(3,"OPENING RENTAL CARS PAGE AND FINDING LOCATION...");
         CarsRentalMainPage carsRentalMainPage = new CarsRentalMainPage();
-        carsRentalMainPage.setLocation("Sheremetyevo Airport (SVO)");
+        carsRentalMainPage.setLocation(rentalLocation);
         carsRentalMainPage.clickSearchButton();
 
         Logger.logStep(4,"OPENING SEARCH CAR PAGE AND SETTING RENTAL TIME...");
         SearchCarPage searchCarPage = new SearchCarPage();
         SearchAndFilterForm searchAndFilterForm = new SearchAndFilterForm();
-        searchAndFilterForm.setRentalTime(RentalDateType.PICK_UP,"25", Month.DECEMBER,"2018","11:30");
-        searchAndFilterForm.setRentalTime(RentalDateType.DROP_OFF,"26", Month.DECEMBER,"2018","11:30");
+        searchAndFilterForm.setRentalTime(RentalDateType.PICK_UP, pickUpDate);
+        searchAndFilterForm.setRentalTime(RentalDateType.DROP_OFF, dropOffDate);
         searchAndFilterForm.clickSearchButton();
 
         Logger.logStep(5,"SETTING CURRENCY 'USD'...");
@@ -43,6 +49,7 @@ public class CarsRentalTest extends BaseEntity {
         searchCarPage.sortBy(RentalSortCriteria.PRICE);
 
         Logger.logStep(6,"VERIFYING THAT THE FIRST OFFERED CAR PRICE LESS THAN 130$...");
-        Assert.assertTrue(searchCarPage.getCarPrice(1)<130,"Flight time does not match the required");
+        Assert.assertTrue(searchCarPage.getCarPrice(1)<maxAllowablePrice
+                ,"Flight time does not match the required");
     }
 }

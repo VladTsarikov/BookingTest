@@ -1,5 +1,6 @@
 package booking.accommodation.pages.forms;
 
+import booking.common.entities.Date;
 import booking.common.forms.BaseCalendarForm;
 import framework.utils.CustomCalendar;
 import framework.webdriver.elements.*;
@@ -17,17 +18,17 @@ public class AccommodationCalendarForm extends BaseCalendarForm {
         super(By.xpath(MAIN_LOCATOR),"Calendar Form");
     }
 
-    public void setCheckInDate(int year, int month, int day){
+    public void setCheckInDate(Date date){
         int monthIndex = goToMonth(CustomCalendar.getCurrentYear(), CustomCalendar.getCurrentMonth()
-                , CustomCalendar.getCurrentDay() , year, month, day);
-        clickOnCurrentMonthDay(day,monthIndex);
+                , CustomCalendar.getCurrentDay() , date.getYear(), date.getMonthIndex(), date.getDay());
+        clickOnCurrentMonthDay(date.getDay(),monthIndex);
     }
 
-    public void setCheckOutDate(int year, int month, int day){
+    public void setCheckOutDate(Date date){
         int monthIndex = goToMonth(CustomCalendar.getCurrentYear(), CustomCalendar.getCurrentMonth()
-                , CustomCalendar.getCurrentDay(), year, month, day);
+                , CustomCalendar.getCurrentDay(), date.getYear(), date.getMonthIndex(), date.getDay());
         int firstMonthIndex = 16;
-        clickOnCurrentMonthDay(day,monthIndex + firstMonthIndex);
+        clickOnCurrentMonthDay(date.getDay(),monthIndex + firstMonthIndex);
     }
 
     private void clickOnCurrentMonthDay(int day,int monthIndex){
