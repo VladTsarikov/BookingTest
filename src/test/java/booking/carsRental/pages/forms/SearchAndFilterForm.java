@@ -4,6 +4,7 @@ import booking.carsRental.enums.RentalDateType;
 import booking.common.entities.Date;
 import booking.common.enums.TimeName;
 import booking.flights.enums.Chars;
+import framework.utils.CustomCalendar;
 import framework.webdriver.BaseForm;
 import framework.webdriver.elements.Button;
 import framework.webdriver.elements.Select;
@@ -23,19 +24,18 @@ public class SearchAndFilterForm extends BaseForm {
 
     public void setRentalTime(RentalDateType dateType, Date date){
         int increment = 1;
-        int hoursIndex = 0;
-        int minutesIndex = 1;
         String monthAndYearDate =  new StringBuilder(String.valueOf(date.getMonthIndex()+increment))
                 .append(Chars.HYPHEN.getCharacter()).append(date.getYear()).toString();
-        String[] hoursAndMinutes = date.getTime().split(Chars.COLON.getCharacter());
         new Select(By.xpath(String.format(formatTimeLocator,dateType.getShortName(), TimeName.DAY.getName()))
                 ,"Days Select").selectByValue(String.valueOf(date.getDay()));
         new Select(By.xpath(String.format(formatTimeLocator,dateType.getShortName(), TimeName.MONTH.getName()))
                 ,"Month And Year Select").selectByValue(monthAndYearDate);
         new Select(By.xpath(String.format(formatTimeLocator,dateType.getShortName(), TimeName.HOUR.getName()))
-                ,"Hours Select").selectByValue(hoursAndMinutes[hoursIndex]);
+                ,"Hours Select").selectByValue(CustomCalendar.splitTimeString(date.getTime())
+                .get(TimeName.HOUR.getName()));
         new Select(By.xpath(String.format(formatTimeLocator,dateType.getShortName(), TimeName.MINUTE.getName()))
-                ,"Minutes Select").selectByValue(hoursAndMinutes[minutesIndex]);
+                ,"Minutes Select").selectByValue(CustomCalendar.splitTimeString(date.getTime())
+                .get(TimeName.MINUTE.getName()));
     }
 
     public void clickSearchButton(){

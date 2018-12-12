@@ -64,12 +64,6 @@ public class BaseElement extends BaseEntity {
         return getElement().getText();
     }
 
-    public boolean isSelected(){
-        Waiting.waitForPageIsReady();
-        Waiting.waitFor(ExpectedConditions.visibilityOf(getElement()));
-        return getElement().isSelected();
-    }
-
    public List<WebElement> getChildren(By locator){
        assertIsPresent();
        return getElement().findElements(locator);

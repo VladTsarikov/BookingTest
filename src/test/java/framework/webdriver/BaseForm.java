@@ -13,7 +13,7 @@ public class BaseForm extends BaseEntity{
     protected BaseForm(By locator, String formTitle) {
         PageFactory.initElements(new CustomFieldDecorator(driver), this);
         this.pageLocator = locator;
-        name = formTitle;
+        this.name = formTitle;
         isOpened();
     }
 

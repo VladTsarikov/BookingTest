@@ -28,7 +28,7 @@ public class BaseEntity {
         driver.quit();
     }
 
-    public void selectLastOpenedWindow(){
+    protected void selectLastOpenedWindow(){
         Browser.selectLastWindow();
     }
 }
