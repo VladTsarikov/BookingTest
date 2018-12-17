@@ -14,7 +14,7 @@ import java.util.List;
 
 public class FoundFlightsPage extends BaseForm {
 
-    private final static String MAIN_LOCATOR = "//div[@class='listBody']";
+    private final static String MAIN_LOCATOR = "//div[contains(@id,'leftRail')]//div[@class='resultsCount']";
     private static String flightsDurationLocator = "//div[contains(@class,'duration')]//div[@class='top']";
     private static String flightsPriceLocator = "//a[contains(@id,'price')]/span[contains(@class,'price')]";
     private static String formatSortOptionLocator = "//ul[contains(@id,'dropdownDialogList')]//li[contains(@id,'%s')]";

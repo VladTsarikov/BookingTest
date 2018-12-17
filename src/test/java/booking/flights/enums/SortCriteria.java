@@ -2,9 +2,9 @@ package booking.flights.enums;
 
 public enum SortCriteria {
 
-    CHEAPEST(0),
-    RECOMMENDED(1),
-    QUICKEST(2);
+    CHEAPEST(1),
+    RECOMMENDED(2),
+    QUICKEST(3);
 
     private int number;
 

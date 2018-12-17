@@ -79,7 +79,7 @@ public class FlightsTest extends BaseEntity {
 
         Logger.logStep(6,"SORTING SEARCH AND VERIFYING THAT THE FIRST FLIGHT IS QUITE QUICK...");
         foundFlightsPage.sortBy(SortCriteria.QUICKEST);
-        Assert.assertTrue(foundFlightsPage.getFlightsDuration(1)<3,"Flight time does not match the required");
+        Assert.assertTrue(foundFlightsPage.getFlightsDuration(1)<5,"Flight time does not match the required");
     }
 
     @Parameters({"firstOriginDirection","firstDestinationDirection","secondOriginDirection","secondDestinationDirection"
