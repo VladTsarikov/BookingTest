@@ -7,7 +7,7 @@ import static org.testng.Assert.assertTrue;
 
 public class BaseForm extends BaseEntity{
 
-    protected By pageLocator;
+    private By pageLocator;
     protected String name;
 
     protected BaseForm(By locator, String formTitle) {

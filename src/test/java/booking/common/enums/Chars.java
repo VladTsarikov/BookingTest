@@ -1,8 +1,10 @@
-package booking.flights.enums;
+package booking.common.enums;
 
 public enum Chars {
 
     HYPHEN("-"),
+    COMMA(","),
+    EMPTY_STRING(""),
     COLON(":");
 
     private String character;

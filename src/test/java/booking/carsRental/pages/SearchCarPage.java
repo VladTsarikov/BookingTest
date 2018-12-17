@@ -33,6 +33,7 @@ public class SearchCarPage extends BaseForm {
     }
 
     public double getCarPrice(int carIndex){
-        return Double.parseDouble(RegExpFinder.findByRegularExp(new Label(By.xpath(String.format(formatOfferedCarPriceLocator,carIndex)),"Car Price Locator").getText(), RegExp.RENTAL_CAR_PRICE.getRegExp()));
+        return Double.parseDouble(RegExpFinder.findByRegularExp(new Label(By.xpath(String.format(formatOfferedCarPriceLocator
+                , carIndex)),"Car Price Locator").getText(), RegExp.RENTAL_CAR_PRICE.getRegExp()));
     }
 }

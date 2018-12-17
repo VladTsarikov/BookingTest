@@ -1,9 +1,8 @@
 package framework.utils;
 
 import booking.common.enums.TimeName;
-import booking.flights.enums.Chars;
+import booking.common.enums.Chars;
 import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.HashMap;
 
 public class CustomCalendar {
@@ -16,41 +15,22 @@ public class CustomCalendar {
         return Calendar.getInstance().get(Calendar.YEAR);
     }
 
-    public static int getCurrentDay(){
-        return Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
-    }
-
-    public static int getMonthDifference(int firstYear, int firstMonth, int firstDay
-            , int secondYear, int secondMonth, int secondDay){
+    public static int getMonthDifference(int firstYear, int firstMonth, int secondYear, int secondMonth){
         int monthCount = 12;
         int monthDifference = 0;
-        if(firstYear <= secondYear && secondDay<getMaxMonthDaysCount(secondYear,secondMonth)){
-            int switchCount = (secondYear - firstYear) * monthCount;
+        int switchCount = (secondYear - firstYear) * monthCount;
+        if(firstYear <= secondYear){
             if(firstMonth < secondMonth){
                 monthDifference = (secondMonth - firstMonth + switchCount);
             }
             if(firstMonth > secondMonth && firstYear < secondYear){
-                if((secondYear-firstYear) == 1){
-                    monthDifference = ((monthCount-firstMonth) + secondMonth);
-                }else{
-                    monthDifference = ((monthCount-firstMonth) + secondMonth) + switchCount;
-                }
+                monthDifference = (monthCount - firstMonth + secondMonth) + (switchCount - monthCount);
             }
             if(firstMonth == secondMonth){
-                if(firstDay < secondDay){
-                    monthDifference = (secondMonth - firstMonth + switchCount);
-                }
+                monthDifference = (secondMonth - firstMonth + switchCount);
             }
         }
         return monthDifference;
-    }
-
-    public static int getMaxMonthDaysCount(int year, int monthIndex){
-        Calendar calendar = GregorianCalendar.getInstance();
-        calendar.clear();
-        calendar.set(Calendar.YEAR, year);
-        calendar.set(Calendar.MONTH,monthIndex);
-        return calendar.getActualMaximum( Calendar.DAY_OF_MONTH );
     }
 
     public static HashMap<String, String> splitTimeString(String time){

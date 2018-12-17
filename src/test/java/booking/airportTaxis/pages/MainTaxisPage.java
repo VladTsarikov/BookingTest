@@ -22,8 +22,8 @@ public class MainTaxisPage extends BaseForm {
     }
 
     public void setLocation(TaxisLocationType locationType, String location){
-        new TextBox(By.xpath(String.format(formatLocationLocator,locationType.getName())),"Location '' TextBox")
-                .setText(location).enter();
+        new TextBox(By.xpath(String.format(formatLocationLocator,locationType.getName()))
+                , String.format("Location '%s' TextBox",locationType.getName())).setText(location).enter();
     }
 
     public void clickDateLabel(){

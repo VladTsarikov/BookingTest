@@ -28,11 +28,12 @@ public class MainFlightsPage extends BaseForm {
     }
 
     public void setDirection(Direction direction, String text){
-        new TextBox(By.xpath(String.format(formatWayLocator,direction.getValue())),"Direction TextBox").setTextByChar(text);
+        new TextBox(By.xpath(String.format(formatWayLocator,direction.getValue())),"Direction TextBox")
+                .setTextByChar(text);
     }
 
     public void clickDate(DateType date){
-        new Label(By.xpath(String.format(formatDateLocator,date.getValue())),"Direction TextBox").click();
+        new Label(By.xpath(String.format(formatDateLocator,date.getValue())),"Date TextBox").click();
     }
 
     public void clickSearchButton(){

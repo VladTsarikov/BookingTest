@@ -4,6 +4,7 @@ import booking.accommodation.enums.*;
 import booking.accommodation.enums.PriceFilterIndex;
 import booking.accommodation.pages.menu.UserFomMenu;
 import booking.common.enums.RegExp;
+import booking.common.enums.Chars;
 import framework.utils.RegExpFinder;
 import framework.webdriver.BaseForm;
 import framework.webdriver.elements.*;
@@ -55,12 +56,14 @@ public class SelectedCityPage extends BaseForm {
     }
 
     public void selectPriceFilterCheckBox(PriceFilterIndex filterIndex){
-        new CheckBox(By.xpath(String.format(formatPriceFilterLocator,filterIndex.getIndex())),"Filter CheckBox").click();
+        new CheckBox(By.xpath(String.format(formatPriceFilterLocator,filterIndex.getIndex())),"Filter CheckBox")
+                .click();
     }
 
     public int getSearchResultAmount(){
         return Integer.parseInt(RegExpFinder.findByRegularExp(lblSearchHeading.getText()
-                , RegExp.ACCOMMODATION_COUNT.getRegExp()).replace(",",""));
+                , RegExp.ACCOMMODATION_COUNT.getRegExp()).replace(Chars.COMMA.getCharacter()
+                ,Chars.EMPTY_STRING.getCharacter()));
     }
 
     public void sortBy(AccommodationSortType sortType){

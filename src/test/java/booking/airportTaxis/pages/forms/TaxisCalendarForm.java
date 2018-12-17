@@ -15,7 +15,7 @@ public class TaxisCalendarForm extends BaseCalendarForm {
     private static  @FindBy(how = How.XPATH, using = "//a[contains(@class,'next-month')]") Button btnNextMnoth;
 
     public TaxisCalendarForm() {
-        super(By.xpath(MAIN_LOCATOR),"Calendar Form");
+        super(By.xpath(MAIN_LOCATOR),"Taxis Calendar Form");
     }
 
     @Override
@@ -23,13 +23,13 @@ public class TaxisCalendarForm extends BaseCalendarForm {
         btnNextMnoth.click();
     }
 
-    protected void clickOnMonthDay(int day){
-        new Label(By.xpath(String.format(formatDayLocator,day)),"Day Locator").clickViaJS();
+    private void clickOnMonthDay(int day){
+        new Label(By.xpath(String.format(formatDayLocator,day)),"Taxis Calendar Day Label").clickViaJS();
     }
 
     public void setDate(Date date){
-        goToMonth(CustomCalendar.getCurrentYear(), CustomCalendar.getCurrentMonth(), CustomCalendar.getCurrentDay()
-                , date.getYear(), date.getMonthIndex(), date.getDay());
+        goToMonth(CustomCalendar.getCurrentYear(), CustomCalendar.getCurrentMonth()
+                , date.getYear(), date.getMonthIndex());
         clickOnMonthDay(date.getDay());
     }
 }

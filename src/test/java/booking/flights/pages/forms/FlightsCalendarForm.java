@@ -13,7 +13,7 @@ public class FlightsCalendarForm extends BaseCalendarForm {
     private static  @FindBy(how = How.XPATH, using = " //div[contains(@id,'next')]") Button nextMonthButton;
 
     public FlightsCalendarForm() {
-        super(By.xpath(MAIN_LOCATOR),"Calendar Form");
+        super(By.xpath(MAIN_LOCATOR),"Flights Calendar Form");
     }
 
     protected void clickGoToNextMonthButton() {
@@ -22,6 +22,7 @@ public class FlightsCalendarForm extends BaseCalendarForm {
 
     protected void clickOnMonthDay(int day){
         int currentMonthIndex = 2;
-        new Label(By.xpath(String.format(formatDayLocator,day,currentMonthIndex)),"Day Locator").click();
+        new Label(By.xpath(String.format(formatDayLocator,day,currentMonthIndex))
+                ,"Flights Calendar Day Label").click();
     }
 }

@@ -9,8 +9,8 @@ public class UserFomMenu {
     private static String formatMenuLabelLocator = "//div[@id='user_form']//a[contains(@class,'%s')]";
 
     public void clickMenuItem(UserMenuItemName itemName) {
-        new Label(By.xpath(String.format(formatMenuLabelLocator,itemName.getName())),String.format("Menu Item '%s'",itemName))
-                .click();
+        new Label(By.xpath(String.format(formatMenuLabelLocator,itemName.getName()))
+                ,String.format("Menu Item '%s'",itemName)).click();
     }
 
     public String getCurrentCurrency(){

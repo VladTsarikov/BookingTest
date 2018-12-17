@@ -6,8 +6,8 @@ import framework.utils.CustomCalendar;
 public class SingleCalendarForm extends FlightsCalendarForm {
 
     public void setDate(Date date){
-        goToMonth(CustomCalendar.getCurrentYear(), CustomCalendar.getCurrentMonth(), CustomCalendar.getCurrentDay()
-                , date.getYear(), date.getMonthIndex(), date.getDay());
+        goToMonth(CustomCalendar.getCurrentYear(), CustomCalendar.getCurrentMonth()
+                , date.getYear(), date.getMonthIndex());
         clickOnMonthDay(date.getDay());
     }
 }

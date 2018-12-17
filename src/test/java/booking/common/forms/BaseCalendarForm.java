@@ -10,10 +10,10 @@ public abstract class BaseCalendarForm extends BaseForm {
         super(locator, formTitle);
     }
 
-    protected int goToMonth(int currentYear, int currentMonth, int currentDay, int year, int month, int day){
-        int monthDifference = CustomCalendar.getMonthDifference(currentYear, currentMonth,currentDay,year, month, day);
+    protected int goToMonth(int currentYear, int currentMonth, int year, int month){
+        int monthDifference = CustomCalendar.getMonthDifference(currentYear, currentMonth,year, month);
         int monthIndex = monthDifference+1;
-        while(monthDifference>0){
+        while(monthDifference > 0){
             clickGoToNextMonthButton();
             monthDifference--;
         }

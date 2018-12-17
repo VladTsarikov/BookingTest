@@ -15,24 +15,25 @@ public class AccommodationCalendarForm extends BaseCalendarForm {
     private static  @FindBy(how = How.XPATH, using = "//div[contains(@class,'button-further')]") Button nextMnthButtonElement;
 
     public AccommodationCalendarForm() {
-        super(By.xpath(MAIN_LOCATOR),"Calendar Form");
+        super(By.xpath(MAIN_LOCATOR),"Accommodation Calendar Form");
     }
 
     public void setCheckInDate(Date date){
         int monthIndex = goToMonth(CustomCalendar.getCurrentYear(), CustomCalendar.getCurrentMonth()
-                , CustomCalendar.getCurrentDay() , date.getYear(), date.getMonthIndex(), date.getDay());
+                 , date.getYear(), date.getMonthIndex());
         clickOnCurrentMonthDay(date.getDay(),monthIndex);
     }
 
     public void setCheckOutDate(Date date){
         int monthIndex = goToMonth(CustomCalendar.getCurrentYear(), CustomCalendar.getCurrentMonth()
-                , CustomCalendar.getCurrentDay(), date.getYear(), date.getMonthIndex(), date.getDay());
+                , date.getYear(), date.getMonthIndex());
         int firstMonthIndex = 16;
         clickOnCurrentMonthDay(date.getDay(),monthIndex + firstMonthIndex);
     }
 
     private void clickOnCurrentMonthDay(int day,int monthIndex){
-        new Label(By.xpath(String.format(formatDayLocator, day, monthIndex)),"Day Locator").click();
+        new Label(By.xpath(String.format(formatDayLocator, day, monthIndex)),"Accommodation Calendar Day Label")
+                .click();
     }
 
     @Override

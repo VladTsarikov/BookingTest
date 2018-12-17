@@ -3,7 +3,7 @@ package booking.carsRental.pages.forms;
 import booking.carsRental.enums.RentalDateType;
 import booking.common.entities.Date;
 import booking.common.enums.TimeName;
-import booking.flights.enums.Chars;
+import booking.common.enums.Chars;
 import framework.utils.CustomCalendar;
 import framework.webdriver.BaseForm;
 import framework.webdriver.elements.Button;
@@ -19,7 +19,7 @@ public class SearchAndFilterForm extends BaseForm {
     private static  @FindBy(how = How.XPATH, using = "//button[contains(@class,'proceed-btn')]") Button btnSearch;
 
     public SearchAndFilterForm() {
-        super(By.id(MAIN_LOCATOR),"Cars Rental Main Page");
+        super(By.id(MAIN_LOCATOR),"Search And Filter Form");
     }
 
     public void setRentalTime(RentalDateType dateType, Date date){

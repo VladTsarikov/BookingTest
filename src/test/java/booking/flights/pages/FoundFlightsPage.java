@@ -24,7 +24,7 @@ public class FoundFlightsPage extends BaseForm {
     public MainHeaderMenu mainHeaderMenu = new MainHeaderMenu();
 
     public FoundFlightsPage() {
-        super(By.xpath(MAIN_LOCATOR),"Main Flights Page");
+        super(By.xpath(MAIN_LOCATOR),"Found Flights Page");
     }
 
     public void sortBy(SortCriteria criteria){
@@ -42,7 +42,7 @@ public class FoundFlightsPage extends BaseForm {
         int minutesPerHour = 60;
         int hours = 0;
         int minutes = 0;
-        List<WebElement> durations = new Label(By.xpath(String.format(flightsLocator,flightIndex)),"Flight Locator")
+        List<WebElement> durations = new Label(By.xpath(String.format(flightsLocator,flightIndex)),"Flight Label")
                 .getChildren(By.xpath(flightsDurationLocator));
         for (WebElement duration : durations) {
             hours += Integer.parseInt(RegExpFinder.findByRegularExp(duration.getText(), RegExp.HOUR.getRegExp()));

@@ -6,11 +6,11 @@ import framework.utils.CustomCalendar;
 public class DoubleCalendarForm extends FlightsCalendarForm {
 
     public void setDates(Date firstDate, Date secondDate){
-        goToMonth(CustomCalendar.getCurrentYear(), CustomCalendar.getCurrentMonth(), CustomCalendar.getCurrentDay()
-                , firstDate.getYear(), firstDate.getMonthIndex(), firstDate.getDay());
+        goToMonth(CustomCalendar.getCurrentYear(), CustomCalendar.getCurrentMonth()
+                , firstDate.getYear(), firstDate.getMonthIndex());
         clickOnMonthDay(firstDate.getDay());
-        goToMonth(firstDate.getYear(), firstDate.getMonthIndex(), firstDate.getDay(), secondDate.getYear()
-                , secondDate.getMonthIndex(), secondDate.getDay());
+        goToMonth(firstDate.getYear(), firstDate.getMonthIndex(), secondDate.getYear()
+                , secondDate.getMonthIndex());
         clickOnMonthDay(secondDate.getDay());
     }
 }
