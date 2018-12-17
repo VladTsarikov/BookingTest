@@ -17,7 +17,7 @@ public class FlightsTest extends BaseEntity {
 
     private Date firstDate = new Date(2018, Month.DECEMBER.getIndex(),25,"11:00");
     private Date secondDate = new Date(2018, Month.DECEMBER.getIndex(),26, "11:00");
-    private Date thirdDate = new Date(2018, Month.DECEMBER.getIndex(),27, "11:))");
+    private Date thirdDate = new Date(2018, Month.DECEMBER.getIndex(),27, "11:00");
 
     @Parameters({"firstOriginDirection", "firstDestinationDirection"})
     @Test
