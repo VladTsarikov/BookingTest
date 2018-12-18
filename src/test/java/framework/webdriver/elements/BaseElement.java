@@ -60,11 +60,14 @@ public class BaseElement extends BaseEntity {
 
     public String getText(){
         Waiting.waitForPageIsReady();
+        Waiting.waitFor(ExpectedConditions.visibilityOf(getElement()));
         Logger.log(String.format("Getting text of %s", name));
         return getElement().getText();
     }
 
    public List<WebElement> getChildren(By locator){
+       Waiting.waitForPageIsReady();
+       Waiting.waitFor(ExpectedConditions.visibilityOf(getElement()));
        assertIsPresent();
        return getElement().findElements(locator);
    }

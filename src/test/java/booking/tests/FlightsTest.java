@@ -19,9 +19,9 @@ public class FlightsTest extends BaseEntity {
     private Date secondDate = new Date(2018, Month.DECEMBER.getIndex(),26, "11:00");
     private Date thirdDate = new Date(2018, Month.DECEMBER.getIndex(),27, "11:00");
 
-    @Parameters({"firstOriginDirection", "firstDestinationDirection"})
+    @Parameters({"firstOriginDirection", "firstDestinationDirection", "maxAllowablePrice"})
     @Test
-    public void oneWayFlightsTest(String firstOriginDirection, String firstDestinationDirection){
+    public void oneWayFlightsTest(String firstOriginDirection, String firstDestinationDirection, int maxAllowablePrice){
         Logger.logStep(1,"OPENING BOOKING.COM...");
         AccommodationMainPage accommodationMainPage = new AccommodationMainPage();
 
@@ -50,12 +50,13 @@ public class FlightsTest extends BaseEntity {
         flightsCurrencyForm.selectCurrency(Currency.BYN);
 
         Logger.logStep(7,"VERIFYING THAT THE FIRST FLIGHT IS NOT EXPENSIVE...");
-        Assert.assertTrue(foundFlightsPage.getFlightsPrice(1)<360,"Flight price does not match the required");
+        Assert.assertTrue(foundFlightsPage.getFlightsPrice(1) < maxAllowablePrice
+                ,"Flight price does not match the required");
     }
 
-    @Parameters({"firstOriginDirection","firstDestinationDirection"})
+    @Parameters({"firstOriginDirection","firstDestinationDirection","maxAllowableTime"})
     @Test
-    public void roundTripFlightsTest(String firstOriginDirection, String firstDestinationDirection){
+    public void roundTripFlightsTest(String firstOriginDirection, String firstDestinationDirection, int maxAllowableTime){
         Logger.logStep(1,"OPENING BOOKING.COM...");
         AccommodationMainPage accommodationMainPage = new AccommodationMainPage();
 
@@ -79,7 +80,8 @@ public class FlightsTest extends BaseEntity {
 
         Logger.logStep(6,"SORTING SEARCH AND VERIFYING THAT THE FIRST FLIGHT IS QUITE QUICK...");
         foundFlightsPage.sortBy(SortCriteria.QUICKEST);
-        Assert.assertTrue(foundFlightsPage.getFlightsDuration(1)<5,"Flight time does not match the required");
+        Assert.assertTrue(foundFlightsPage.getFlightsDuration(1) < maxAllowableTime
+                ,"Flight time does not match the required");
     }
 
     @Parameters({"firstOriginDirection","firstDestinationDirection","secondOriginDirection","secondDestinationDirection"

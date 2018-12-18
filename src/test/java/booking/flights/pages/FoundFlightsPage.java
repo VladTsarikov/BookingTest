@@ -15,12 +15,13 @@ import java.util.List;
 public class FoundFlightsPage extends BaseForm {
 
     private final static String MAIN_LOCATOR = "//div[contains(@id,'leftRail')]//div[@class='resultsCount']";
-    private static String flightsDurationLocator = "//div[contains(@class,'duration')]//div[@class='top']";
+    private static String flightsDurationLocator = "(//div[@class='resultWrapper'])[%s]//div[contains(@class,'duration')]//div[@class='top']";
     private static String flightsPriceLocator = "//a[contains(@id,'price')]/span[contains(@class,'price')]";
     private static String formatSortOptionLocator = "//ul[contains(@id,'dropdownDialogList')]//li[contains(@id,'%s')]";
-    private static String flightsLocator = "(//div[contains(@class,'Flights-Results')]//div[@class='resultWrapper'])[%s]";
+    private static String flightsLocator = "(//div[@class='resultWrapper'])[%s]";
     private static  @FindBy(how = How.XPATH, using = "//div[contains(@id,'sortType')]/span") ComboBox selectSortBy;
     private static  @FindBy(how = How.XPATH, using = "//div[@class='count']//span[@class='filtered']") Label lblResultCount;
+    private static  @FindBy(how = How.XPATH, using = "//div[@id='searchResultsList']") Label lblResultList;
     public MainHeaderMenu mainHeaderMenu = new MainHeaderMenu();
 
     public FoundFlightsPage() {
@@ -42,11 +43,11 @@ public class FoundFlightsPage extends BaseForm {
         int minutesPerHour = 60;
         int hours = 0;
         int minutes = 0;
-        List<WebElement> durations = new Label(By.xpath(String.format(flightsLocator,flightIndex)),"Flight Label")
-                .getChildren(By.xpath(flightsDurationLocator));
+        List<WebElement> durations = lblResultList.getChildren(By.xpath(String.format(flightsDurationLocator,flightIndex)));
         for (WebElement duration : durations) {
-            hours += Integer.parseInt(RegExpFinder.findByRegularExp(duration.getText(), RegExp.HOUR.getRegExp()));
-            minutes += Integer.parseInt(RegExpFinder.findByRegularExp(duration.getText(), RegExp.MINUTES.getRegExp()));
+            Label lblFlightDuration = new Label(duration);
+            hours += Integer.parseInt(RegExpFinder.findByRegularExp(lblFlightDuration.getText(), RegExp.HOUR.getRegExp()));
+            minutes += Integer.parseInt(RegExpFinder.findByRegularExp(lblFlightDuration.getText(), RegExp.MINUTES.getRegExp()));
         }
         return minutes/minutesPerHour + hours;
     }

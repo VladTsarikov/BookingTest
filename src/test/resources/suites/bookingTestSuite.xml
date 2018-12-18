@@ -24,6 +24,8 @@
         <parameter name="secondDestinationDirection" value=" Kiev (IEV)"/>
         <parameter name="thirdOriginDirection" value=" Kiev (IEV)"/>
         <parameter name="thirdDestinationDirection" value=" Minsk (MSQ)"/>
+        <parameter name="maxAllowablePrice" value="360"/>
+        <parameter name="maxAllowableTime" value="4"/>
         <classes>
             <class name="booking.tests.FlightsTest" />
         </classes>
