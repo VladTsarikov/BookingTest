@@ -28,9 +28,10 @@ public class FoundFlightsPage extends BaseForm {
         super(By.xpath(MAIN_LOCATOR),"Found Flights Page");
     }
 
-    public void sortBy(SortCriteria criteria){
+    public FoundFlightsPage sortBy(SortCriteria criteria){
         selectSortBy.click();
         new Label(By.xpath(String.format(formatSortOptionLocator,criteria.getValue())),"Sort Option Label").click();
+        return this;
     }
 
     public int getFlightsPrice(int flightsIndex){

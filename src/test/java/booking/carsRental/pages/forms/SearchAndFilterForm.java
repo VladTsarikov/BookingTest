@@ -22,7 +22,7 @@ public class SearchAndFilterForm extends BaseForm {
         super(By.id(MAIN_LOCATOR),"Search And Filter Form");
     }
 
-    public void setRentalTime(RentalDateType dateType, Date date){
+    public SearchAndFilterForm setRentalTime(RentalDateType dateType, Date date){
         int increment = 1;
         String monthAndYearDate =  new StringBuilder(String.valueOf(date.getMonthIndex()+increment))
                 .append(Chars.HYPHEN.getCharacter()).append(date.getYear()).toString();
@@ -36,6 +36,7 @@ public class SearchAndFilterForm extends BaseForm {
         new Select(By.xpath(String.format(formatTimeLocator,dateType.getShortName(), TimeName.MINUTE.getName()))
                 ,"Minutes Select").selectByValue(CustomCalendar.splitTimeString(date.getTime())
                 .get(TimeName.MINUTE.getName()));
+        return this;
     }
 
     public void clickSearchButton(){

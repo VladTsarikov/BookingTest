@@ -30,9 +30,7 @@ public class BaseElement extends BaseEntity {
     }
 
     public void click(){
-        Waiting.waitForPageIsReady();
-        Waiting.waitFor(ExpectedConditions.visibilityOf(getElement()));
-        Waiting.waitFor(ExpectedConditions.elementToBeClickable(getElement()));
+        waitingBeforeClick();
         assertIsPresent();
         Logger.log(String.format("Clicking on %s", name));
         getElement().click();
@@ -44,15 +42,12 @@ public class BaseElement extends BaseEntity {
     }
 
     public void clickByActions(){
-        Waiting.waitForPageIsReady();
-        Waiting.waitFor(ExpectedConditions.visibilityOf(getElement()));
-        Waiting.waitFor(ExpectedConditions.elementToBeClickable(getElement()));
+        waitingBeforeClick();
         new Actions(driver).moveToElement(getElement()).build().perform();
     }
 
     public void clickViaJS() {
-        Waiting.waitForPageIsReady();
-        Waiting.waitFor(ExpectedConditions.elementToBeClickable(getElement()));
+        waitingBeforeClick();
         assertIsPresent();
         Logger.log(String.format("Clicking on %s", name));
         ((JavascriptExecutor) Browser.getDriver()).executeScript("arguments[0].click();", getElement());
@@ -61,12 +56,15 @@ public class BaseElement extends BaseEntity {
     public String getText(){
         Waiting.waitForPageIsReady();
         Waiting.waitFor(ExpectedConditions.visibilityOf(getElement()));
+        Waiting.waitFor(ExpectedConditions.stalenessOf(getElement()));
+        assertIsPresent();
         Logger.log(String.format("Getting text of %s", name));
         return getElement().getText();
     }
 
    public List<WebElement> getChildren(By locator){
        Waiting.waitForPageIsReady();
+       Waiting.waitFor(ExpectedConditions.visibilityOf(getElement()));
        Waiting.waitFor(ExpectedConditions.visibilityOf(getElement()));
        assertIsPresent();
        return getElement().findElements(locator);
@@ -85,7 +83,6 @@ public class BaseElement extends BaseEntity {
                 status = true;
             }
         }catch (Exception e){
-            status = false;
             Logger.log(LogType.DEBUG,e);
         }
         return status;
@@ -101,5 +98,11 @@ public class BaseElement extends BaseEntity {
         }else{
             return element;
         }
+    }
+
+    private void waitingBeforeClick(){
+        Waiting.waitForPageIsReady();
+        Waiting.waitFor(ExpectedConditions.visibilityOf(getElement()));
+        Waiting.waitFor(ExpectedConditions.elementToBeClickable(getElement()));
     }
 }

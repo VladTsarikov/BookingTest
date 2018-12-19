@@ -16,9 +16,10 @@ public class CarsRentalMainPage extends BaseForm {
         super(By.id(MAIN_LOCATOR),"Cars Rental Main Page");
     }
 
-    public void setLocation(String location){
+    public CarsRentalMainPage setLocation(String location){
         txbSearch.setText(location);
         txbSearch.enter();
+        return this;
     }
 
     public void clickSearchButton(){

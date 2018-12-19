@@ -23,8 +23,10 @@ public class SearchCarPage extends BaseForm {
         super(By.xpath(MAIN_LOCATOR),"Search Car Page");
     }
 
-    public void chooseCarType(int index){
-        lblCarsTypeBoxLabel.getChildren(By.xpath(formatCarsTypeLocator)).get(index-1).click();
+    public SearchCarPage chooseCarType(int index){
+        int decrement = 1;
+        lblCarsTypeBoxLabel.getChildren(By.xpath(formatCarsTypeLocator)).get(index-decrement).click();
+        return this;
     }
 
     public void sortBy(RentalSortCriteria sortCriteria){

@@ -39,25 +39,31 @@ public class SelectedCityPage extends BaseForm {
          cmbCheckOutDate.click();
     }
 
-    public void chooseAdultsCount(int count){
-        selectAdultsCount.selectByIndex(count-1);
+    public SelectedCityPage chooseAdultsCount(int count){
+        int decrement = 1;
+        selectAdultsCount.selectByIndex(count-decrement);
+        return this;
     }
 
-    public void chooseChildrenCount(int count){
+    public SelectedCityPage chooseChildrenCount(int count){
         selectChildrenCount.selectByIndex(count);
+        return this;
     }
 
-    public void chooseRoomsCount(int count){
-        selectRoomCount.selectByIndex(count-1);
+    public SelectedCityPage chooseRoomsCount(int count){
+        int decrement = 1;
+        selectRoomCount.selectByIndex(count-decrement);
+        return this;
     }
 
     public void clickSearchButton(){
         btnSearch.click();
     }
 
-    public void selectPriceFilterCheckBox(PriceFilterIndex filterIndex){
+    public SelectedCityPage selectPriceFilterCheckBox(PriceFilterIndex filterIndex){
         new CheckBox(By.xpath(String.format(formatPriceFilterLocator,filterIndex.getIndex())),"Filter CheckBox")
                 .click();
+        return this;
     }
 
     public int getSearchResultAmount(){

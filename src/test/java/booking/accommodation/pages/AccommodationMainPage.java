@@ -23,8 +23,9 @@ public class AccommodationMainPage extends BaseForm {
         new Label(By.xpath(String.format(formatPromotionCityLocator,countryNumber)),"Promotion City Label").click();
     }
 
-    public void setCityToFind(String city){
+    public AccommodationMainPage setCityToFind(String city){
         txbSearch.setText(city);
+        return this;
     }
 
     public void clickSearchButton(){

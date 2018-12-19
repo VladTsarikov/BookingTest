@@ -20,33 +20,30 @@ public class CarsRentalTest extends BaseEntity {
     @Parameters({"rentalLocation","maxAllowablePrice"})
     @Test
     public void rentalCarPriceTest(String rentalLocation, int maxAllowablePrice){
-        Logger.logStep(1,"OPENING BOOKING.COM...");
-        AccommodationMainPage accommodationMainPage = new AccommodationMainPage();
-
-        Logger.logStep(2,"CLICKING ON CARS RENTAL MENU ITEM...");
-        accommodationMainPage.mainNavigateMenu.clickMenuItem(MenuItemName.CAR_RENTALS.getName());
+        Logger.logStep(1,"OPENING BOOKING.COM AND CLICKING ON CARS RENTAL MENU ITEM...");
+        new AccommodationMainPage().mainNavigateMenu.clickMenuItem(MenuItemName.CAR_RENTALS.getName());
         selectLastOpenedWindow();
 
-        Logger.logStep(3,"OPENING RENTAL CARS PAGE AND FINDING LOCATION...");
-        CarsRentalMainPage carsRentalMainPage = new CarsRentalMainPage();
-        carsRentalMainPage.setLocation(rentalLocation);
-        carsRentalMainPage.clickSearchButton();
+        Logger.logStep(2,"OPENING RENTAL CARS PAGE AND FINDING LOCATION...");
+        new CarsRentalMainPage()
+                .setLocation(rentalLocation)
+                .clickSearchButton();
 
-        Logger.logStep(4,"OPENING SEARCH CAR PAGE AND SETTING RENTAL TIME...");
+        Logger.logStep(3,"OPENING SEARCH CAR PAGE AND SETTING RENTAL TIME...");
         SearchCarPage searchCarPage = new SearchCarPage();
-        SearchAndFilterForm searchAndFilterForm = new SearchAndFilterForm();
-        searchAndFilterForm.setRentalTime(RentalDateType.PICK_UP, pickUpDate);
-        searchAndFilterForm.setRentalTime(RentalDateType.DROP_OFF, dropOffDate);
-        searchAndFilterForm.clickSearchButton();
+        new SearchAndFilterForm()
+                .setRentalTime(RentalDateType.PICK_UP, pickUpDate)
+                .setRentalTime(RentalDateType.DROP_OFF, dropOffDate)
+                .clickSearchButton();
 
-        Logger.logStep(5,"SETTING CURRENCY 'USD'...");
+        Logger.logStep(4,"SETTING CURRENCY 'USD'...");
         searchCarPage.rentalHeaderMenu.clickMenuItem(RentalMenuItemName.CURRENCY);
-        RentalCurrencyForm rentalCurrencyForm = new RentalCurrencyForm();
-        rentalCurrencyForm.selectCurrency(Currency.USD);
+        new RentalCurrencyForm().selectCurrency(Currency.USD);
 
         Logger.logStep(5,"CHOOSING RANDOM CAR TYPE AND SORTING RESULT BY PRICE...");
-        searchCarPage.chooseCarType(Random.getRandomNumber(1,7));
-        searchCarPage.sortBy(RentalSortCriteria.PRICE);
+        searchCarPage
+                .chooseCarType(Random.getRandomNumber(1,7))
+                .sortBy(RentalSortCriteria.PRICE);
 
         Logger.logStep(6,"VERIFYING THAT THE FIRST OFFERED CAR PRICE LESS THAN 130$...");
         Assert.assertTrue(searchCarPage.getCarPrice(1)<maxAllowablePrice

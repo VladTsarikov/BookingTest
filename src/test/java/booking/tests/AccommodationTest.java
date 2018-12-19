@@ -21,8 +21,7 @@ public class AccommodationTest extends BaseEntity {
     public void accommodationsCountTest(int firstAdultsCount, int firstChildrenCount
             , int firstRoomsCount, int minAllowableSearchCount){
         Logger.logStep(1,"OPENING BOOKING.COM AND CHOOSING RANDOM PROMOTION CITY...");
-        AccommodationMainPage accommodationMainPage = new AccommodationMainPage();
-        accommodationMainPage.choosePromotionCity(Random.getRandomNumber(1,5));
+        new AccommodationMainPage().choosePromotionCity(Random.getRandomNumber(1,5));
 
         Logger.logStep(2,"OPENING SELECTED CITY PAGE AND CHOOSING REQUIRED DATE...");
         SelectedCityPage selectedCityPage = new SelectedCityPage();
@@ -31,10 +30,11 @@ public class AccommodationTest extends BaseEntity {
         new AccommodationCalendarForm().setCheckOutDate(checkOutDate);
 
         Logger.logStep(3,"CHOOSING ADULTS, CHILDREN AND ROOMS COUNT...");
-        selectedCityPage.chooseAdultsCount(firstAdultsCount);
-        selectedCityPage.chooseChildrenCount(firstChildrenCount);
-        selectedCityPage.chooseRoomsCount(firstRoomsCount);
-        selectedCityPage.clickSearchButton();
+        selectedCityPage
+                .chooseAdultsCount(firstAdultsCount)
+                .chooseChildrenCount(firstChildrenCount)
+                .chooseRoomsCount(firstRoomsCount)
+                .clickSearchButton();
 
         Logger.logStep(4,"VERIFYING THAT MORE THAN 20 OFFERS FOUND...");
         Assert.assertTrue(selectedCityPage.getSearchResultAmount() > minAllowableSearchCount
@@ -46,9 +46,9 @@ public class AccommodationTest extends BaseEntity {
     public void accommodationsPriceTest(int secondAdultsCount, int secondChildrenCount
             , int secondRoomsCount, int maxAllowablePrice){
         Logger.logStep(1,"OPENING BOOKING.COM AND CHOOSING CITY...");
-        AccommodationMainPage accommodationMainPage = new AccommodationMainPage();
-        accommodationMainPage.setCityToFind("Warsaw");
-        accommodationMainPage.clickSearchButton();
+        new AccommodationMainPage()
+                .setCityToFind("Warsaw")
+                .clickSearchButton();
 
         Logger.logStep(2,"OPENING SELECTED CITY PAGE AND CHOOSING REQUIRED DATE...");
         SelectedCityPage selectedCityPage = new SelectedCityPage();
@@ -58,10 +58,11 @@ public class AccommodationTest extends BaseEntity {
         new AccommodationCalendarForm().setCheckOutDate(checkOutDate);
 
         Logger.logStep(3,"CHOOSING ADULTS, CHILDREN AND ROOMS COUNT...");
-        selectedCityPage.chooseAdultsCount(secondAdultsCount);
-        selectedCityPage.chooseChildrenCount(secondChildrenCount);
-        selectedCityPage.chooseRoomsCount(secondRoomsCount);
-        selectedCityPage.clickSearchButton();
+        selectedCityPage
+                .chooseAdultsCount(secondAdultsCount)
+                .chooseChildrenCount(secondChildrenCount)
+                .chooseRoomsCount(secondRoomsCount)
+                .clickSearchButton();
 
         Logger.logStep(4,"SETTING NECESSARY CURRENCY...");
         if(!selectedCityPage.userFomMenu.getCurrentCurrency().equals(Currency.BYN.toString())){
@@ -70,8 +71,9 @@ public class AccommodationTest extends BaseEntity {
         }
 
         Logger.logStep(5,"FILTERING AND SORTING OFFERS...");
-        selectedCityPage.selectPriceFilterCheckBox(PriceFilterIndex.FIRST_FILTER);
-        selectedCityPage.sortBy(AccommodationSortType.SCORE_AND_PRICE);
+        selectedCityPage
+                .selectPriceFilterCheckBox(PriceFilterIndex.FIRST_FILTER)
+                .sortBy(AccommodationSortType.SCORE_AND_PRICE);
 
         Logger.logStep(6,"VERIFYING THAT OFFER PRICE LESS THAN 500 BYN...");
         Assert.assertTrue(selectedCityPage.getOfferPrice(1) < maxAllowablePrice

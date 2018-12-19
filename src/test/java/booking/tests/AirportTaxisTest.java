@@ -19,26 +19,23 @@ public class AirportTaxisTest extends BaseEntity {
     @Parameters({"pickUpTaxisLocation","dropOffTaxisLocation", "taxisPassengersCount"})
     @Test
     public void taxisSearchTest(String pickUpTaxisLocation, String dropOffTaxisLocation, int taxisPassengersCount){
-        Logger.logStep(1,"OPENING BOOKING.COM...");
-        AccommodationMainPage accommodationMainPage = new AccommodationMainPage();
-
-        Logger.logStep(2,"CLICKING ON AIRPORT TAXIS MENU ITEM...");
-        accommodationMainPage.mainNavigateMenu.clickMenuItem(MenuItemName.AIRPORT_TAXIS.getName());
+        Logger.logStep(1,"OPENING BOOKING.COM AND CLICKING ON AIRPORT TAXIS MENU ITEM...");
+        new AccommodationMainPage().mainNavigateMenu.clickMenuItem(MenuItemName.AIRPORT_TAXIS.getName());
         selectLastOpenedWindow();
 
-        Logger.logStep(3,"OPENING AIRPORT TAXIS PAGE AND SETTING SEARCHING INFORMATION...");
+        Logger.logStep(2,"OPENING AIRPORT TAXIS PAGE AND SETTING SEARCHING INFORMATION...");
         MainTaxisPage mainTaxisPage = new MainTaxisPage();
-        mainTaxisPage.setLocation(TaxisLocationType.PICK_UP, pickUpTaxisLocation);
-        mainTaxisPage.setLocation(TaxisLocationType.DROP_OFF, dropOffTaxisLocation);
-        mainTaxisPage.clickDateLabel();
+        mainTaxisPage
+                .setLocation(TaxisLocationType.PICK_UP, pickUpTaxisLocation)
+                .setLocation(TaxisLocationType.DROP_OFF, dropOffTaxisLocation)
+                .clickDateLabel();
         new TaxisCalendarForm().setDate(date);
         mainTaxisPage.clickTimeLabel();
         new TaxisTimeForm().setTime(date.getTime()).clickConfirmButton();
         mainTaxisPage.setPassengersCount(taxisPassengersCount);
 
-        Logger.logStep(4,"SEARCHING TAXIS AND VERIFYING THAT AT LEAST ONE CAR FOUND...");
+        Logger.logStep(3,"SEARCHING TAXIS AND VERIFYING THAT AT LEAST ONE CAR FOUND...");
         mainTaxisPage.clickSearchButton();
-        FoundTaxisPage foundTaxisPage = new FoundTaxisPage();
-        Assert.assertTrue(foundTaxisPage.getFoundTaxisCount()>0,"No taxis has not found");
+        Assert.assertTrue(new FoundTaxisPage().getFoundTaxisCount()>0,"No taxis has not found");
     }
 }

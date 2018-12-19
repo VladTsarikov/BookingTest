@@ -17,22 +17,19 @@ public class TextBox extends BaseElement{
     }
 
     public TextBox setText(String text){
-        Waiting.waitForPageIsReady();
-        Waiting.waitFor(ExpectedConditions.visibilityOf(getElement()));
+        waitingBeforeSetting();
         getElement().clear();
         getElement().sendKeys(text);
         return this;
     }
 
     public void enter(){
-        Waiting.waitForPageIsReady();
-        Waiting.waitFor(ExpectedConditions.visibilityOf(getElement()));
+        waitingBeforeSetting();
         getElement().sendKeys(Keys.ENTER);
     }
 
     public void setTextByChar(String text){
-        Waiting.waitForPageIsReady();
-        Waiting.waitFor(ExpectedConditions.visibilityOf(getElement()));
+        waitingBeforeSetting();
         getElement().clear();
         for (int i = 0; i < text.length(); i++){
             try {
@@ -43,5 +40,11 @@ public class TextBox extends BaseElement{
             String s = String.valueOf(text.charAt(i));
             getElement().sendKeys(s);
         }
+    }
+
+    private void waitingBeforeSetting(){
+        Waiting.waitForPageIsReady();
+        Waiting.waitFor(ExpectedConditions.visibilityOf(getElement()));
+        Waiting.waitFor(ExpectedConditions.elementToBeClickable(getElement()));
     }
 }

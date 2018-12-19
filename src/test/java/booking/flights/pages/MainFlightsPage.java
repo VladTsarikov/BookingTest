@@ -27,9 +27,10 @@ public class MainFlightsPage extends BaseForm {
                 .format("Flight Type '%s' Label",flightType)).click();
     }
 
-    public void setDirection(Direction direction, String text){
+    public MainFlightsPage setDirection(Direction direction, String text){
         new TextBox(By.xpath(String.format(formatWayLocator,direction.getValue())),"Direction TextBox")
                 .setTextByChar(text);
+        return this;
     }
 
     public void clickDate(DateType date){
@@ -40,9 +41,10 @@ public class MainFlightsPage extends BaseForm {
         btnSearch.clickViaJS();
     }
 
-    public void selectTime(TimeNumber number, String value){
+    public MainFlightsPage selectTime(TimeNumber number, String value){
         String selectValue = RegExpFinder.findByRegularExp(value, RegExp.TIME_FOR_SELECT.getRegExp());
         new Select(By.xpath(String.format(formatTimeLocator,number.getValue())),"Time Select")
                 .selectByValue(selectValue);
+        return this;
     }
 }
