@@ -30,6 +30,7 @@ public class BaseElement extends BaseEntity {
     }
 
     public void click(){
+        Waiting.waitForPageIsReady();
         waitingBeforeClick();
         assertIsPresent();
         Logger.log(String.format("Clicking on %s", name));
@@ -42,11 +43,13 @@ public class BaseElement extends BaseEntity {
     }
 
     public void clickByActions(){
+        Waiting.waitForPageIsReady();
         waitingBeforeClick();
         new Actions(driver).moveToElement(getElement()).build().perform();
     }
 
     public void clickViaJS() {
+        Waiting.waitForPageIsReady();
         waitingBeforeClick();
         assertIsPresent();
         Logger.log(String.format("Clicking on %s", name));
@@ -101,7 +104,6 @@ public class BaseElement extends BaseEntity {
     }
 
     private void waitingBeforeClick(){
-        Waiting.waitForPageIsReady();
         Waiting.waitFor(ExpectedConditions.visibilityOf(getElement()));
         Waiting.waitFor(ExpectedConditions.elementToBeClickable(getElement()));
     }
