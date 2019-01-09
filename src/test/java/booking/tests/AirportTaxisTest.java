@@ -14,7 +14,7 @@ import org.testng.annotations.Test;
 
 public class AirportTaxisTest extends BaseEntity {
 
-    private Date date = new Date(2018, Month.DECEMBER.getIndex(),25, "04:00");
+    private Date date = new Date(2019, Month.JANUARY.getIndex(),25, "04:00");
 
     @Parameters({"pickUpTaxisLocation","dropOffTaxisLocation", "taxisPassengersCount"})
     @Test

@@ -14,8 +14,8 @@ import org.testng.annotations.Test;
 
 public class CarsRentalTest extends BaseEntity {
 
-    private Date pickUpDate = new Date(2018, Month.DECEMBER.getIndex(),25,"11:30");
-    private Date dropOffDate = new Date(2018, Month.DECEMBER.getIndex(),26,"11:30");
+    private Date pickUpDate = new Date(2019, Month.JANUARY.getIndex(),25,"11:30");
+    private Date dropOffDate = new Date(2019, Month.JANUARY.getIndex(),26,"11:30");
 
     @Parameters({"rentalLocation","maxAllowablePrice"})
     @Test

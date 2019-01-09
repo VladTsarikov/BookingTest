@@ -13,8 +13,8 @@ import org.testng.annotations.Test;
 
 public class AccommodationTest extends BaseEntity {
 
-    private Date checkInDate = new Date(2018, Month.DECEMBER.getIndex(),25);
-    private Date checkOutDate = new Date(2018, Month.DECEMBER.getIndex(),28);
+    private Date checkInDate = new Date(2019, Month.JANUARY.getIndex(),25);
+    private Date checkOutDate = new Date(2019, Month.JANUARY.getIndex(),28);
 
     @Parameters({"firstAdultsCount","firstChildrenCount", "firstRoomsCount", "minAllowableSearchCount"})
     @Test
